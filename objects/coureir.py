@@ -1,3 +1,4 @@
+import allure
 import requests
 import json
 from constants import const as c
@@ -5,11 +6,12 @@ from constants import const as c
 
 class Courier:
 
-    def __init__(self, login, password, name):
+    def __init__(self, login, password, name=None):
         self.login = login
         self.password = password
         self.name = name
 
+    @allure.step("Создать курьера")
     def create_courier(self):
         url = f"{c.host}/api/v1/courier"
 
@@ -22,7 +24,8 @@ class Courier:
         response = requests.post(url, data=payload)
         return response
 
-    def courier_login(self):
+    @allure.step("Авторизоваться под курьером в системе")
+    def login_courier(self):
         url = f"{c.host}/api/v1/courier/login"
 
         payload = {
@@ -33,7 +36,9 @@ class Courier:
         response = requests.post(url, data=payload)
         return response
 
-    def delete_corier(self, courier_id):
+    @staticmethod
+    @allure.step("Удалить курьера")
+    def delete_courier(courier_id):
         url = f"{c.host}/api/v1/courier/:id"
 
         payload = {

@@ -47,3 +47,14 @@ class Order:
 
         response = requests.get(url, params=params)
         return response
+
+    @staticmethod
+    def cancel_order(order_id):
+        url = f"{c.host}/api/v1/orders/cancel"
+
+        payload = {
+            "track": order_id
+        }
+
+        response = requests.put(url, data=payload)
+        return response
