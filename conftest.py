@@ -5,8 +5,8 @@ from constants import const as c
 from objects import basic_functions as b
 
 
-@allure.title("Создать нового курьера")
-@pytest.fixture(scope='class', autouse=True)
+@allure.title("Создание нового курьера")
+@pytest.fixture(scope='class')
 def new_courier():
     login_pass = []
     login = b.generate_random_string(10)
@@ -35,11 +35,13 @@ def new_courier():
         requests.delete(f"{c.host}/api/v1/courier/:id", data={"id": courier_id})
 
 
-@pytest.fixture(scope='class', autouse=True)
+@allure.title("Получение логина созданного курьера")
+@pytest.fixture(scope='class')
 def correct_login(new_courier):
     return new_courier[0]
 
 
-@pytest.fixture(scope='class', autouse=True)
+@allure.title("Получение пароля созданного курьера")
+@pytest.fixture(scope='class')
 def correct_password(new_courier):
     return new_courier[1]

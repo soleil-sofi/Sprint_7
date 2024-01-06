@@ -1,3 +1,4 @@
+import allure
 import requests
 from constants import const as c
 
@@ -17,6 +18,7 @@ class Order:
         self.comment = comment
         self.color = color
 
+    @allure.step("Создать заказ")
     def create_order(self):
         url = f"{c.host}/api/v1/orders"
 
@@ -35,6 +37,7 @@ class Order:
         response = requests.post(url, data=payload)
         return response
 
+    @allure.step("Получить список заказов")
     def get_orders_list(self, courier_id=None):
         url = f"{c.host}/api/v1/orders"
 
@@ -49,6 +52,7 @@ class Order:
         return response
 
     @staticmethod
+    @allure.step("Отменить заказ")
     def cancel_order(order_id):
         url = f"{c.host}/api/v1/orders/cancel"
 
