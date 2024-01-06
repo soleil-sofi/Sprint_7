@@ -4,7 +4,7 @@ from constants import const as c
 
 class Order:
 
-    def __init__(self, color: list, first_name: str = "Testname", last_name: str = "Testname", address: str = "smth",
+    def __init__(self, color: list = [], first_name: str = "Testname", last_name: str = "Testname", address: str = "smth",
                  metro_station: int = 1, phone: str = "+7 800 355 35 35", rent_time: int = 4,
                  delivery_date: str = "2024-01-07", comment: str = "test"):
         self.first_name = first_name
@@ -35,7 +35,7 @@ class Order:
         response = requests.post(url, data=payload)
         return response
 
-    def get_orders_list(self, courier_id):
+    def get_orders_list(self, courier_id=None):
         url = f"{c.host}/api/v1/orders"
 
         params = {

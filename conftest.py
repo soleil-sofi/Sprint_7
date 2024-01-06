@@ -43,19 +43,3 @@ def correct_login(new_courier):
 @pytest.fixture(scope='class', autouse=True)
 def correct_password(new_courier):
     return new_courier[1]
-
-
-@pytest.fixture(scope='class')
-def courier_auth(new_courier):
-    url = f"{c.host}/api/v1/courier/login"
-
-    payload = {
-        "login": new_courier[0],
-        "password": new_courier[1]
-    }
-
-    response = requests.post(url, data=payload)
-    courier_id = 0
-    if response.status_code == 200:
-        courier_id = response.json()["id"]
-    return courier_id
