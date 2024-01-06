@@ -1,6 +1,5 @@
 import allure
 import requests
-import json
 from constants import const as c
 
 
@@ -32,7 +31,6 @@ class Courier:
             "login": self.login,
             "password": self.password
         }
-
         response = requests.post(url, data=payload)
         return response
 
