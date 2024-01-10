@@ -20,8 +20,6 @@ class Order:
 
     @allure.step("Создать заказ")
     def create_order(self):
-        url = f"{c.host}/api/v1/orders"
-
         payload = {
             "firstName": self.first_name,
             "lastName": self.last_name,
@@ -34,13 +32,11 @@ class Order:
             "color": self.color
         }
 
-        response = requests.post(url, data=payload)
+        response = requests.post(c.EP_ORDERS, data=payload)
         return response
 
     @allure.step("Получить список заказов")
     def get_orders_list(self, courier_id=None):
-        url = f"{c.host}/api/v1/orders"
-
         params = {
             "courierId": courier_id,
             "nearestStation": [str(self.metro_station)],
@@ -48,17 +44,15 @@ class Order:
             "page": None
         }
 
-        response = requests.get(url, params=params)
+        response = requests.get(c.EP_ORDERS, params=params)
         return response
 
     @staticmethod
     @allure.step("Отменить заказ")
     def cancel_order(order_id):
-        url = f"{c.host}/api/v1/orders/cancel"
-
         payload = {
             "track": order_id
         }
 
-        response = requests.put(url, data=payload)
+        response = requests.put(c.EP_ORDERS_CANCEL, data=payload)
         return response
